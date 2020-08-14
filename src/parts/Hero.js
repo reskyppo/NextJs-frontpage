@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Hero() {
-  const submit = () => {};
+  const [state, setstate] = useState(() => "");
 
+  function submit() {
+    window.open(
+      `${process.env.NEXT_PUBLIC_MEMBERPAGE_URL}/register?email=${state}`
+    );
+  }
   return (
     <div className="flex justify-between items-center">
       <div className="w-1/2">
         <h1 className="text-5xl text-white mb-5 font-semibold">
-          <span className="text-teal-400">The New</span> Way to <br /> Archieve
-          Good {""}
-          <span className="text-teal-400">Skill</span>
+          <span className="text-teal-400">The New</span> Way to
+          <br /> Achieve Good <span className="text-teal-400">Skills</span>
         </h1>
         <p className="text-white font-light text-lg mb-8">
           We provide tons of pathskill that you <br /> can choose and focus on
@@ -18,11 +22,13 @@ export default function Hero() {
         <form onSubmit={submit}>
           <input
             type="text"
+            onChange={(event) => setstate(event.target.value)}
             className="bg-white focus:outline-none border-0 px-6 py-3 w-1/2"
+            value={state}
             placeholder="Your email addres"
           />
           <button className="bg-orange-500 hover:bg-orange-400 transition-all duration-200 focus:outline-none shadow-inner text-white px-6 py-3">
-            Register Now
+            Daftar Now
           </button>
         </form>
       </div>
@@ -31,14 +37,16 @@ export default function Hero() {
           <div
             className="absolute border-indigo-700 border-2 -mt-12 -mr-6 right-0"
             style={{ width: 324, height: 374 }}
-          >
-            <div className="absolute w-full h-full mt-8 -ml-8">
-              <img src="/images/img-mascot.jpg" alt="hero mascot" />
-            </div>
+          ></div>
+          <div className="absolute w-full h-full -mb-8 -ml-8">
+            <img
+              src="/images/img-mascot.jpg"
+              alt="Mbak Alyssa Cakep euy"
+            />
           </div>
           <div
             className="absolute z-10 bg-white py-3 px-4 mt-24"
-            style={{ transform: "translateX(-50%", width: 290 }}
+            style={{ transform: "translateX(-50%)", width: 290 }}
           >
             <p className="text-gray-900 mb-2">
               Metode belajar yang santai seperti nonton drakor di Netflix
