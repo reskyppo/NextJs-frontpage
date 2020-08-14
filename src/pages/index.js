@@ -3,6 +3,7 @@ import Link from "next/link";
 import Circle from "public/images/circle-accent-1.svg";
 
 import Header from "src/parts/Header";
+import Hero from "src/parts/Hero";
 
 function Home() {
   return (
@@ -17,6 +18,7 @@ function Home() {
           <div className="sunshine"></div>
           <div className="container mx-auto">
             <Header></Header>
+            <Hero></Hero>
           </div>
         </section>
       </main>
