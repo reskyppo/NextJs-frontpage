@@ -2,11 +2,12 @@ import React from "react";
 
 import Link from "next/link";
 
+
 import IconPlay from "public/images/icon-play.svg";
 export default function RenderItem({ item }) {
   return (
     <div className="w-1/4 px-4 ">
-      <div className="item">
+      <div className="item relative">
         <figure className="item-image">
           <IconPlay></IconPlay>
           <img
@@ -22,7 +23,7 @@ export default function RenderItem({ item }) {
             {item?.name ?? "Course Level"}
           </h5>
         </div>
-        <Link href="/course/[slug]" as={`/course/${item.id}`}>
+        <Link href="/course/[slug]" as={`/courses/${item.id}`}>
           <a className="link-wrapper"></a>
         </Link>
       </div>
