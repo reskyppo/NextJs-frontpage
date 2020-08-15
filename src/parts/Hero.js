@@ -41,7 +41,7 @@ export default function Hero() {
           <div className="absolute w-full h-full -mb-8 -ml-8">
             <img
               src="/images/img-mascot.jpg"
-              alt="Mbak Alyssa Cakep euy"
+              alt="Image Ambassador"
             />
           </div>
           <div
