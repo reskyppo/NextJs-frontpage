@@ -22,8 +22,8 @@ export default function ListCourses({ data }) {
         </div>
       </div>
       <div className="flex justify-start items-center -mx-4 mt-6">
-        {data.data.length > 0 ? (
-          data.data.map((item, index) => {
+        {data?.length > 0 ? (
+          data.map((item, index) => {
             return <RenderItem item={item} key={index}></RenderItem>;
           })
         ) : (
