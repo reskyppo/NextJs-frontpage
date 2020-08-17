@@ -1,33 +1,68 @@
 import Head from "next/head";
 import Link from "next/link";
+import Youtube from "react-youtube";
 
-function Todo({ data }) {
+import courses from "src/constans/api/courses";
+import Header from "src/parts/Header";
+function DetailsCourse({ data }) {
+  console.log("DetailsCourse -> data", data);
   return (
     <>
       <Head>
-        <title>{data.title}</title>
+        <title>Micro</title>
       </Head>
 
-      <main className="container mt-12 mx-auto">
-        <h1 className="text-3xl">{data.title}</h1>
+      <section
+        className="pt-10 relative overflow-hidden"
+        style={{ height: 660 }}
+      >
+        {data?.chapters?.[0]?.lessons?.[0]?.video && (
+          <div className="video-wrapper">
+            <Youtube
+              videoId={data?.chapters?.[0]?.lessons?.[0]?.video}
+              id={data?.chapters?.[0]?.lessons?.[0]?.video}
+              opts={{
+                playerVars: {
+                  loop: 1,
+                  mute: 1,
+                  autoplay: 1,
+                  controls: 0,
+                  showinfo: 0,
+                },
+              }}
+              onEnd={(event) => {
+                event.target.playVideo();
+              }}
+            ></Youtube>
+          </div>
+        )}
 
-        <Link href="/random">
-          <a>Go Back </a>
-        </Link>
-      </main>
+        <div className="absolute inset-0 z-0 w-full h-full bg-black opacity-75"></div>
+        <div className="meta-title absolute inset-0 object-fill z-0 w-full flex justify-center items-center">
+          <div className="">
+            <div className="text-center">
+              <h3 className="text-lg text-white">Kelas Online:</h3>
+              <h4 className="text-6xl text-teal-600 font-semibold">
+                {data?.name ?? "Nama Kelas"}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div className="container mx-auto z-10 relative">
+          <Header></Header>
+        </div>
+      </section>
     </>
   );
 }
 
-Todo.getInitialProps = async (props) => {
+DetailsCourse.getInitialProps = async (props) => {
   const { id } = props.query;
 
   try {
-    const data = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
-      .then((response) => response.json())
-      .then((json) => json);
+    const data = await courses.details(id);
     return { data };
   } catch (error) {}
 };
 
-export default Todo;
+export default DetailsCourse;
