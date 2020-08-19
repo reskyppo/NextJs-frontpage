@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Youtube from "react-youtube";
@@ -12,8 +13,9 @@ import courses from "src/constans/api/courses";
 import Header from "src/parts/Header";
 import Footer from "src/parts/Footer";
 import Feature from "src/parts/Details/Feature";
+import CoursePhoto from 'src/parts/Details/CoursePhoto'
+
 import formatThousand from "src/helpers/formatThousand";
-import { useState, useRef, useEffect } from "react";
 
 function DetailsCourse({ data }) {
   const footer = useRef(null);
@@ -22,10 +24,7 @@ function DetailsCourse({ data }) {
     const stickyOffsetTop = footer.current.getBoundingClientRect().top;
 
     const stickyMetaToggler = () => {
-      console.log("====================================");
-      console.log(stickyOffsetTop, window.pageYOffset, window.innerHeight);
-      console.log("====================================");
-      setisSticky(stickyOffsetTop >= window.pageYOffset + window.innerHeight);
+      +setisSticky(stickyOffsetTop >= window.pageYOffset + window.innerHeight);
     };
     window.addEventListener("scroll", stickyMetaToggler);
     return () => {
@@ -151,6 +150,20 @@ function DetailsCourse({ data }) {
               <p className="text-gray-600 tex-lg leading-relaxed mb-3">
                 {data?.description ?? "No Description Found"}
               </p>
+            </section>
+            <section className="mt-10">
+              <h6 className="font-medium text-gray-900 text-2xl mb-4">
+                Course <span className="text-teal-500">Photos</span>
+              </h6>
+              <div className="flex justify-start items-center -mx-4 mt-6">
+                {data?.images?.length > 0 ? (
+                  data?.images?.map?.((photo, index) => (
+                    <CoursePhoto data={photo} key={index} />
+                  ))
+                ) : (
+                  <div className="w-full text-center py-12">No Item Found</div>
+                )}
+              </div>
             </section>
           </div>
         </div>
