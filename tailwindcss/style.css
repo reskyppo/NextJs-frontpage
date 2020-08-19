@@ -37,7 +37,7 @@
 
 .meta-price-exit-active {
   opacity: 0;
-  bottom: 1;
+  bottom: -100%;
 }
 
 .meta-price-enter-done {
