@@ -2,16 +2,36 @@ import Head from "next/head";
 import Link from "next/link";
 import Youtube from "react-youtube";
 
+import { CSSTransition } from "react-transition-group";
+
 import Nametag from "public/images/icon-nametag.svg";
 import Playback from "public/images/icon-playback.svg";
 import Certificate from "public/images/icon-certificate.svg";
 
 import courses from "src/constans/api/courses";
 import Header from "src/parts/Header";
+import Footer from "src/parts/Footer";
 import Feature from "src/parts/Details/Feature";
+import formatThousand from "src/helpers/formatThousand";
+import { useState, useRef, useEffect } from "react";
 
 function DetailsCourse({ data }) {
-  console.log("DetailsCourse -> data", data);
+  const footer = useRef(null);
+  const [isSticky, setisSticky] = useState(() => true);
+  useEffect(() => {
+    const stickyOffsetTop = footer.current.getBoundingClientRect().top;
+
+    const stickyMetaToggler = () => {
+      console.log("====================================");
+      console.log(stickyOffsetTop, window.pageYOffset, window.innerHeight);
+      console.log("====================================");
+      setisSticky(stickyOffsetTop >= window.pageYOffset + window.innerHeight);
+    };
+    window.addEventListener("scroll", stickyMetaToggler);
+    return () => {
+      window.removeventListener("scroll", stickyMetaToggler);
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -86,6 +106,44 @@ function DetailsCourse({ data }) {
             </div>
           </div>
         </div>
+        <div>
+          <CSSTransition
+            in={isSticky}
+            timeout={300}
+            classNames="meta-price"
+            unmountOnExit
+          >
+            <div className="meta-price w-full bg-white z-50 left-0 py-3">
+              <div className="w-3/4 mx-auto">
+                <div className="flex items-center">
+                  <div className="w-full">
+                    <h2 className="text-gray-600">Nama Kelas</h2>
+                    <h3 className="text-2xl text-gray-900">
+                      {data?.name ?? "Nama Kelas"}
+                    </h3>
+                  </div>
+                  <h5 className="text-2xl text-teal-500 whitespace-no-wrap mr-4">
+                    {data?.type === "free" ? (
+                      "free"
+                    ) : (
+                      <span>Rp {formatThousand(data?.price ?? 0)}</span>
+                    )}
+                  </h5>
+                  <a
+                    href={`${process.env.NEXT_PUBLIC_MEMBERPAGE_URL}?/joined/${data.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-orange-500 hover:bg-orange-400 transition-all duration-200 focus:outline-none shadow-inner text-white px-6 py-3 whitespace-no-wrap"
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </CSSTransition>
+        </div>
+      </section>
+      <div className="" style={{ height: 2000 }}></div>
+      <section className="mt-24 bg-indigo-1000 py-12" ref={footer}>
+        <Footer></Footer>
       </section>
     </>
   );
