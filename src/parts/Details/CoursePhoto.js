@@ -13,7 +13,7 @@ export default function CoursePhoto({ data }) {
           <img src={data} alt={data} className="object-cover h-32 w-full" />
         </figure>
         <Modal content={(toggle) => <img src={data} alt={data} />}>
-          {(toggle) => <span onClick={toggle} className="link-wrapped"></span>}
+          {(toggle) => <span onClick={toggle} className="link-wrapper"></span>}
         </Modal>
       </div>
     </div>

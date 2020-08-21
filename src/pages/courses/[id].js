@@ -13,31 +13,35 @@ import courses from "src/constans/api/courses";
 import Header from "src/parts/Header";
 import Footer from "src/parts/Footer";
 import Feature from "src/parts/Details/Feature";
-import CoursePhoto from 'src/parts/Details/CoursePhoto'
+import CoursePhoto from "src/parts/Details/CoursePhoto";
 
 import formatThousand from "src/helpers/formatThousand";
 
 function DetailsCourse({ data }) {
-  console.log("DetailsCourse -> data", data)
+  console.log(data);
+
   const footer = useRef(null);
+
   const [isSticky, setisSticky] = useState(() => true);
+
   useEffect(() => {
     const stickyOffsetTop = footer.current.getBoundingClientRect().top;
 
     const stickyMetaToggler = () => {
-      +setisSticky(stickyOffsetTop >= window.pageYOffset + window.innerHeight);
+      setisSticky(stickyOffsetTop >= window.pageYOffset + window.innerHeight);
     };
+
     window.addEventListener("scroll", stickyMetaToggler);
     return () => {
       window.removeEventListener("scroll", stickyMetaToggler);
     };
   }, []);
+
   return (
     <>
       <Head>
         <title>Micro</title>
       </Head>
-
       <section
         className="pt-10 relative overflow-hidden"
         style={{ height: 660 }}
@@ -65,19 +69,18 @@ function DetailsCourse({ data }) {
 
         <div className="absolute inset-0 z-0 w-full h-full bg-black opacity-75"></div>
         <div className="meta-title absolute inset-0 object-fill z-0 w-full flex justify-center items-center">
-          <div className="">
-            <div className="text-center">
-              <h3 className="text-lg text-white">Kelas Online:</h3>
-              <h4 className="text-6xl text-teal-600 font-semibold">
-                {data?.name ?? "Nama Kelas"}
-              </h4>
-            </div>
+          <div className="text-center">
+            <h3 className="text-lg text-white">Kelas Online: </h3>
+            <h4 className="text-6xl text-teal-500 font-semibold">
+              {data?.name ?? "Nama Kelas"}
+            </h4>
           </div>
         </div>
         <div className="container mx-auto z-10 relative">
           <Header></Header>
         </div>
       </section>
+
       <section className="container mx-auto pt-24 relative">
         <div className="absolute top-0 w-full transform -translate-y-1/2">
           <div className="w-3/4 mx-auto">
@@ -143,8 +146,7 @@ function DetailsCourse({ data }) {
           </CSSTransition>
         </div>
 
-
-        <div className="mx-auto mt-8 w-3/4">
+        <div className="w-3/4 mx-auto mt-8">
           <div className="w-3/4">
             <section>
               <h6 className="font-medium text-gray-900 text-2xl mb-4">
@@ -161,9 +163,9 @@ function DetailsCourse({ data }) {
               </h6>
               <div className="flex justify-start items-center -mx-4 mt-6">
                 {data?.images?.length > 0 ? (
-                  data?.images?.map?.((photo, index) => {
+                  data?.images?.map?.((photo, index) => (
                     <CoursePhoto data={photo.image} key={index} />
-                  })
+                  ))
                 ) : (
                   <div className="w-full text-center py-12">No Item Found</div>
                 )}
