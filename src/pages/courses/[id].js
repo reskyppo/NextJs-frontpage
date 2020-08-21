@@ -18,7 +18,6 @@ import CoursePhoto from "src/parts/Details/CoursePhoto";
 import formatThousand from "src/helpers/formatThousand";
 
 function DetailsCourse({ data }) {
-  console.log(data);
 
   const footer = useRef(null);
 
