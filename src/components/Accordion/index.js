@@ -8,7 +8,7 @@ export { default as IconLock } from "public/images/icon-lock.svg";
 export default function Accordion({ children }) {
   const [Active, setActive] = useState(() => null);
   const toggle = (id) => {
-    setActive((prev) => (id ? null : id));
+    setActive((prev) => (prev === id ? null : id));
   };
   return <div className="accordion">{children(Active, toggle)}</div>;
 }

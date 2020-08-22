@@ -3,17 +3,14 @@ import React from "react";
 import Youtube from "react-youtube";
 
 import Accordion, { IconLock, IconPlay, Item } from "src/components/Accordion";
-
 import Modal from "src/components/Modal";
-import index from "../ListCategories";
 
 export default function RenderPreview({ previews }) {
   return (
     <div className="accordion">
       <Accordion>
         {(Active, toggle) => {
-          return previews?.map((item, ibdex) => {
-            console.log(item);
+          return previews?.map((item, index) => {
             return (
               <Item
                 id={item.id}
@@ -24,15 +21,15 @@ export default function RenderPreview({ previews }) {
                 key={`${index}-${item.id}`}
               >
                 {item?.lessons?.length > 0 &&
-                  item.lessons.map((child, idx) => {
+                  item.lessons.map((child, index2) => (
                     <div
-                      key={`${idx}-${child.id}`}
-                      className="relative flex justify-between items-center pl-8 pr-4 py-2"
+                      key={`${index2}-${child.id}`}
+                      className="relative hover:bg-gray-200 flex justify-between items-center pl-8 pr-4 py-2"
                     >
                       <span className="text-gray-600">
-                        {child?.name ?? "Course Name"}
+                        {child?.name ?? "Course name"}
                       </span>
-                      {idx === 0 && (
+                      {index2 === 0 && (
                         <Modal
                           content={(toggleModal) => (
                             <Youtube
@@ -48,7 +45,6 @@ export default function RenderPreview({ previews }) {
                             ></Youtube>
                           )}
                         >
-                          {" "}
                           {(toggleModal) => (
                             <span
                               className="link-wrapper"
@@ -57,18 +53,17 @@ export default function RenderPreview({ previews }) {
                           )}
                         </Modal>
                       )}
-
-                      {idx === 0 && (
+                      {index2 === 0 && (
                         <IconPlay
-                          className="fill-teal-500 "
+                          className="fill-teal-500"
                           width={20}
                           height={20}
                         ></IconPlay>
                       )}
 
-                      {!child.isPreview && index !== 0 && <IconLock></IconLock>}
-                    </div>;
-                  })}
+                      {index2 !== 0 && <IconLock></IconLock>}
+                    </div>
+                  ))}
               </Item>
             );
           });
